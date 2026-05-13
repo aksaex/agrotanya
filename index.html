@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRO-TANYA | Semantic Search Pertanian</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        agro: {
+                            50: '#f2fbf5', 100: '#e1f6e8', 200: '#c4ebd2', 300: '#99d9b2',
+                            400: '#67be8b', 500: '#43a06a', 600: '#308051', 700: '#276643',
+                            800: '#215136', 900: '#1c432e', 950: '#0f2519',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 37, 25, 0.85), rgba(15, 37, 25, 0.95)), url('sawah.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-card" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-leaf text-agro-600 text-2xl"></i>
+                    <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-gray-900">
+                        AGRO<span class="text-agro-600">-TANYA</span>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#beranda" class="text-gray-600 hover:text-agro-600 font-medium transition">Beranda</a>
+                    <a href="#tentang" class="text-gray-600 hover:text-agro-600 font-medium transition">Tentang</a>
+                    <a href="#arsitektur" class="text-gray-600 hover:text-agro-600 font-medium transition">Arsitektur</a>
+                    <a href="#tim" class="text-gray-600 hover:text-agro-600 font-medium transition">Tim</a>
+                </div>
+
+                <div class="hidden md:flex gap-3 items-center">
+                    <a href="https://github.com/aksaex/agro_tanya" target="_blank" class="text-gray-500 hover:text-gray-900 transition text-xl">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://agrotanya.streamlit.app/" target="_blank" class="bg-agro-600 hover:bg-agro-700 text-white px-5 py-2.5 rounded-xl font-semibold transition shadow-lg shadow-agro-900/20 flex items-center gap-2">
+                        <i class="fa-solid fa-rocket"></i> Coba AI
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-agro-600 focus:outline-none text-2xl p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full left-0">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#beranda" class="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-agro-600 hover:bg-agro-50">Beranda</a>
+                <a href="#tentang" class="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-agro-600 hover:bg-agro-50">Tentang</a>
+                <a href="#arsitektur" class="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-agro-600 hover:bg-agro-50">Arsitektur</a>
+                <a href="#tim" class="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-agro-600 hover:bg-agro-50">Tim Pengembang</a>
+                <div class="pt-4 flex flex-col gap-3">
+                    <a href="https://agrotanya.streamlit.app/" target="_blank" class="w-full text-center bg-agro-600 text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rocket"></i> Luncurkan Aplikasi AI
+                    </a>
+                    <a href="https://github.com/aksaex/agro_tanya" target="_blank" class="w-full text-center bg-gray-100 text-gray-800 px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-github"></i> Repository GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="beranda" class="relative pt-28 pb-16 md:pt-40 md:pb-32 overflow-hidden hero-bg min-h-[90vh] flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-10 items-center text-center lg:text-left">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-agro-500/20 border border-agro-400/30 text-agro-100 font-medium text-xs md:text-sm mb-6 backdrop-blur-sm mx-auto lg:mx-0">
+                        <span class="flex h-2 w-2 rounded-full bg-agro-400 animate-pulse"></span>
+                        Sistem Temu Kembali Informasi Cerdas
+                    </div>
+                    <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                        Tanya Apapun Tentang <br class="hidden sm:block"><span class="text-agro-400">Pertanian.</span>
+                    </h1>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-300 font-light mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Membantu petani di Parepare & Sidrap mendapatkan jawaban instan dari dokumen resmi Kementan menggunakan teknologi <b>Semantic Search</b>.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://agrotanya.streamlit.app/" target="_blank" class="bg-agro-500 hover:bg-agro-600 text-white px-6 py-4 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-bold text-base md:text-lg transition-all shadow-xl shadow-agro-900/40 flex items-center justify-center gap-3 w-full sm:w-auto">
+                            Mulai Bertanya <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#tentang" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl md:rounded-2xl font-semibold text-base md:text-lg transition flex items-center justify-center w-full sm:w-auto">
+                            Pelajari Sistem
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hidden sm:block relative animate-float mt-12 lg:mt-0 max-w-sm mx-auto lg:max-w-md">
+                    <div class="absolute inset-0 bg-agro-500 blur-[80px] opacity-30"></div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 md:p-4 rounded-3xl shadow-2xl border border-white/20 relative z-10">
+                        <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=800" alt="Pertanian Modern" class="rounded-2xl shadow-inner w-full object-cover h-48 md:h-64">
+                        <div class="absolute -bottom-5 -left-5 md:-bottom-6 md:-left-6 bg-white p-4 md:p-5 rounded-2xl shadow-xl flex items-center gap-3">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-agro-100 text-agro-600 rounded-xl flex items-center justify-center text-lg md:text-xl">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-xs md:text-sm text-gray-500 font-medium">Response Time</div>
+                                <div class="text-base md:text-xl font-bold text-gray-900">< 1.2 Detik</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tentang" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h2 class="text-agro-600 font-bold uppercase tracking-widest text-xs md:text-sm mb-3">Visi & Misi</h2>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-5 font-heading leading-tight">Digitalisasi Penyuluhan Pertanian</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
+                        AGRO-TANYA hadir bukan sebagai chatbot yang mengarang cerita, melainkan sebagai <b>Search Engine</b> presisi. Kami membedah ribuan halaman PDF panduan teknis menjadi potongan informasi yang siap disajikan saat petani membutuhkannya.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 md:gap-6">
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="text-2xl md:text-3xl font-extrabold text-agro-600 mb-1">100%</div>
+                            <div class="text-xs md:text-sm text-gray-500 font-medium leading-tight">Data Berbasis Dokumen Resmi</div>
+                        </div>
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="text-2xl md:text-3xl font-extrabold text-agro-600 mb-1">Passage</div>
+                            <div class="text-xs md:text-sm text-gray-500 font-medium leading-tight">Retrieval Extraction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 grid grid-cols-1 gap-4 w-full">
+                    <div class="p-6 md:p-8 rounded-2xl bg-agro-900 text-white shadow-2xl relative overflow-hidden group">
+                        <i class="fa-solid fa-quote-left absolute top-4 right-4 text-white/10 text-6xl"></i>
+                        <h4 class="text-lg md:text-xl font-bold mb-3 relative z-10">Pencarian Semantik</h4>
+                        <p class="text-agro-100/90 text-sm md:text-base leading-relaxed relative z-10">
+                            Sistem memahami bahwa kueri <i>"obat daun kuning"</i> secara semantik berhubungan dengan artikel teknis mengenai <i>"fungisida klorosis"</i>.
+                        </p>
+                    </div>
+                    <div class="p-6 md:p-8 rounded-2xl bg-agro-50 text-gray-900 border border-agro-100">
+                        <h4 class="text-lg md:text-xl font-bold mb-3 text-agro-800">Cakupan Wilayah</h4>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed">Fokus utama pada optimalisasi lahan padi dan jagung di daerah Parepare dan Sidrap, Sulawesi Selatan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="arsitektur" class="py-16 md:py-24 bg-gray-50 border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 font-heading">Pipeline AI & IR</h3>
+                <p class="text-gray-500 text-sm md:text-base max-w-2xl mx-auto">Alur teknologi dibalik kecerdasan AGRO-TANYA dalam menemukan jawaban.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">Ingestion</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">Ekstraksi teks dari dokumen penyuluhan BPTP.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">Embedding</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">Vektorisasi teks menggunakan model IndoBERT.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">ChromaDB</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">Penyimpanan vektor pencarian jarak dekat.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center hover:-translate-y-1 transition duration-300">
+                    <div class="w-14 h-14 bg-agro-50 text-agro-600 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">RAG Engine</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">Sintesis jawaban akurat via LLM (Anti-halusinasi).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tim" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 font-heading">Tim Pengembang</h3>
+                <p class="text-gray-500 text-sm md:text-base">Mata Kuliah: Perolehan Informasi (Information Retrieval)</p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-10 md:gap-8">
+                
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="aksa.png" alt="Muh. Aksa" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Muh+Aksa&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">Muh. Aksa</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">Lead Developer</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="arya.png" alt="Aryaguna" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Aryaguna&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">Aryaguna P.</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">AI Engineer</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="agim.png" alt="Warsila Agimnastiar" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Warsila+A&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">W. Agimnastiar</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">Data Engineer</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="safri.png" alt="Safri Nur" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Safri+N&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">Safri Nur S.</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">Data Scraper</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="fatima.png" alt="Sitti Fatima" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Sitti+F&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">Sitti Fatima</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">UI/UX Designer</p>
+                </div>
+
+                <div class="text-center group">
+                    <div class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gray-100 rounded-full mb-4 border-4 border-agro-50 group-hover:border-agro-300 transition-all flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="jumrianti.png" alt="Jumrianti" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Jumrianti&background=f3f4f6&color=111827'">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base text-gray-900 leading-tight">Jumrianti</h4>
+                    <p class="text-[10px] md:text-xs text-agro-600 font-bold uppercase mt-1">Evaluator</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-950 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <i class="fa-solid fa-leaf text-agro-500 text-2xl"></i>
+                <span class="font-heading font-bold text-2xl">AGRO<span class="text-agro-500">-TANYA</span></span>
+            </div>
+            <p class="text-gray-400 text-sm md:text-base max-w-sm mx-auto mb-8 leading-relaxed">
+                Solusi cerdas temu kembali informasi untuk ketahanan pangan dari tanah Sulawesi.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-10 text-sm md:text-base">
+                <a href="https://agrotanya.streamlit.app/" target="_blank" class="text-agro-400 hover:text-white font-medium transition">Buka Aplikasi AI</a>
+                <a href="https://github.com/aksaex/agro_tanya" target="_blank" class="text-gray-400 hover:text-white font-medium transition">Repository GitHub</a>
+            </div>
+            <div class="pt-8 border-t border-white/10 text-gray-500 text-xs md:text-sm flex flex-col md:flex-row items-center justify-center gap-2">
+                <span>&copy; 2026 Tim AGRO-TANYA.</span>
+                <span class="hidden md:inline">&bull;</span>
+                <span>Dibuat dengan dedikasi untuk petani Indonesia.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scroll Effect
+        const nav = document.getElementById('navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                nav.classList.replace('py-4', 'py-1');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.replace('py-1', 'py-4');
+            }
+        };
+
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
